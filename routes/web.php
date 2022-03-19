@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Livewire\ShowPosts;
+use App\Http\Livewire\ShowAssets;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,4 +17,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', ShowPosts::class)->name('dashboard');
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', ShowAssets::class)->name('dashboard');
