@@ -13,6 +13,18 @@ class CreateAsset extends Component
 
     public $serial_number, $brand, $model, $type, $category_id = 1, $status_id = 1, $explanation, $date_of_entry, $quantity;
 
+    protected $rules = [
+        'serial_number' => 'required|max:255',
+        'brand' => 'required|max:255',
+        'model' => 'required|max:255',
+        'type' => 'required|max:255',
+        'category_id' => 'required|numeric',
+        'status_id' => 'required|numeric',
+        'explanation' => 'required',
+        'date_of_entry' => 'required',
+        'quantity' => 'required|numeric'
+    ];
+
     public function render()
     {
         $categories = Category::all();
@@ -22,6 +34,8 @@ class CreateAsset extends Component
 
     public function save()
     {
+        $this->validate();
+
         Asset::create([
             'serial_number' => $this->serial_number,
             'brand' => $this->brand,
