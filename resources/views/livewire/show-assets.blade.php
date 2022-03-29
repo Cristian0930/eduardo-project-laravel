@@ -9,8 +9,9 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <!-- This example requires Tailwind CSS v2.0+ -->
             <x-table>
-                <div class="px-6 py-4">
-                    <x-jet-input class="w-full" type="text" placeholder="search..." wire:model="search"></x-jet-input>
+                <div class="px-6 py-4 flex items-center">
+                    <x-jet-input class="flex-1 mr-4" type="text" placeholder="search..." wire:model="search"></x-jet-input>
+                    @livewire('create-asset')
                 </div>
                 @if($assets->count())
                     <table class="min-w-full divide-y divide-gray-200">
