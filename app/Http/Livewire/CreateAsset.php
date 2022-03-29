@@ -9,9 +9,9 @@ use Livewire\Component;
 
 class CreateAsset extends Component
 {
-    public $open = true;
+    public $open = false;
 
-    public $serial_number, $brand, $model, $type, $category_id, $status_id, $explanation, $date_of_entry, $quantity;
+    public $serial_number, $brand, $model, $type, $category_id = 1, $status_id = 1, $explanation, $date_of_entry, $quantity;
 
     public function render()
     {
@@ -33,5 +33,10 @@ class CreateAsset extends Component
             'date_of_entry' => $this->date_of_entry,
             'quantity' => $this->quantity
         ]);
+
+        $this->reset(['open', 'serial_number', 'brand', 'model', 'type', 'category_id', 'status_id', 'explanation', 'date_of_entry', 'quantity']);
+
+        $this->emitTo('show-assets','render');
+        $this->emit('alert', 'the asset was successfully created');
     }
 }

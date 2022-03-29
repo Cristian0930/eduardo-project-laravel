@@ -10,6 +10,7 @@ class ShowAssets extends Component
     public $search;
     public $sort = 'serial_number';
     public $direction = 'desc';
+    protected $listeners = ['render' => 'render'];
 
     public function render()
     {
