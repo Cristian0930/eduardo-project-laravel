@@ -16,7 +16,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Category::factory(100)->create();
         $this->call([
             StatusSeeder::class,
             CategorySeeder::class,

@@ -19,9 +19,10 @@ class UserSeeder extends Seeder
             'name' => 'admin',
             'email' => 'admin@admin.com',
             'password' => bcrypt('password'),
-            'email_verified_at' => now()
+            'email_verified_at' => now(),
+            'isAdmin' => 1
         ]);
 
-        User::factory(10)->create();
+        User::factory(9)->create();
     }
 }
