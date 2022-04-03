@@ -66,7 +66,8 @@
 
             <div class="mb-4">
                 <x-jet-label value="Explanation" />
-                <textarea wire:model.defer="explanation" class="form-control w-full" rows="6"></textarea>
+                <textarea wire:model.defer="explanation" class="form-control w-full" rows="6">
+                </textarea>
 
                 <x-jet-input-error for="explanation" />
             </div>

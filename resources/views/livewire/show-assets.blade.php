@@ -1,4 +1,4 @@
-<div>
+<div wire:init="loadAssets">
     <div>
         <x-slot name="header">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -10,10 +10,22 @@
             <!-- This example requires Tailwind CSS v2.0+ -->
             <x-table>
                 <div class="px-6 py-4 flex items-center">
-                    <x-jet-input class="flex-1 mr-4" type="text" placeholder="search..." wire:model="search"></x-jet-input>
+
+                    <div class="flex items-center">
+                        <span>Mostrar</span>
+                        <select wire:model="cant" class="mx-2 form-control">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                        <span>Assets</span>
+                    </div>
+
+                    <x-jet-input class="flex-1 mx-4" type="text" placeholder="search..." wire:model="search"></x-jet-input>
                     @livewire('create-asset')
                 </div>
-                @if($assets->count())
+                @if(count($assets))
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
                         <tr>
@@ -129,24 +141,28 @@
                                     <a class="btn btn-green" wire:click="edit({{$asset}})">
                                         <i class="fa fa-edit"></i>
                                     </a>
+
+                                    <a class="btn btn-red ml-2" wire:click="$emit('deleteAsset', {{ $asset->id }})">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach
                         <!-- More people... -->
                         </tbody>
                     </table>
+
+                    @if($assets->hasPages())
+                        <div class="px-6 py-4">
+                            {{ $assets->links() }}
+                        </div>
+                    @endif
+
                 @else
                     <div class="px-6 py-4">
                         No matching record exists
                     </div>
                 @endif
-
-                @if($assets->hasPages())
-                    <div class="px-6 py-4">
-                        {{ $assets->links() }}
-                    </div>
-                @endif
-
 
             </x-table>
         </div>
@@ -247,6 +263,34 @@
                 </x-slot>
             </x-jet-dialog-modal>
         @endif
-
     </div>
+    @push('js')
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <script>
+
+            Livewire.on('deleteAsset', assetId => {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+
+                        Livewire.emitTo('show-assets', 'delete', assetId)
+
+                        Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                        )
+                    }
+                })
+            });
+        </script>
+    @endpush
 </div>

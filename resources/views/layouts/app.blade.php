@@ -14,6 +14,8 @@
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
         <link rel="stylesheet" href="{{ asset('vendor/fontawesome/css/all.min.css') }}">
 
+        @stack('css')
+
         @livewireStyles
 
         <!-- Scripts -->
@@ -44,6 +46,8 @@
         @stack('modals')
 
         @livewireScripts
+
+        @stack('js')
 
         <script>
             Livewire.on('alert', function (message) {
