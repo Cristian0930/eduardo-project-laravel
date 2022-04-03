@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\ShowAssets;
 use App\Http\Livewire\ShowCategories;
+use App\Http\Livewire\ShowStatuses;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,3 +22,5 @@ Route::get('/', function () {
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', ShowAssets::class)->name('dashboard');
 Route::middleware(['auth:sanctum'])->get('/categories', ShowCategories::class)->name('categories');
+Route::middleware(['auth:sanctum'])->get('/statuses', ShowStatuses::class)->name('statuses');
+
