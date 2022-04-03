@@ -102,7 +102,7 @@ class ShowAssets extends Component
             $user = auth()->user()->name;
 
             $this->emit('alert', 'the asset was successfully updated');
-            Log::info('registro actualizado por el usuario: ' . $user);
+            Log::info('El registro fue actualizado por el usuario: ' . $user);
 
         } catch (\Exception $exception) {
             Log::error($exception);
@@ -112,7 +112,9 @@ class ShowAssets extends Component
 
     public function delete($asset)
     {
+        $user = auth()->user()->name;
         $asset = Asset::findOrFail($asset);
+        Log::alert('El registro con número de serie: ' . $asset->serial_number . ' fue borrado por el usuario: ' . $user);
         $asset->delete();
         $this->asset = null;
     }

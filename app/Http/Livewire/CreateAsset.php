@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Asset;
 use App\Models\Category;
 use App\Models\Status;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
 class CreateAsset extends Component
@@ -47,6 +48,9 @@ class CreateAsset extends Component
             'date_of_entry' => $this->date_of_entry,
             'quantity' => $this->quantity
         ]);
+
+        $user = auth()->user()->name;
+        Log::notice('Fue creado un nuevo registro con número de serie: ' . $this->serial_number . ' por el usuario: ' . $user);
 
         $this->reset(['open', 'serial_number', 'brand', 'model', 'type', 'category_id', 'status_id', 'explanation', 'date_of_entry', 'quantity']);
 

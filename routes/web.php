@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\ShowAssets;
+use App\Http\Livewire\ShowCategories;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,7 +16,8 @@ use App\Http\Livewire\ShowAssets;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', ShowAssets::class)->name('dashboard');
+Route::middleware(['auth:sanctum'])->get('/categories', ShowCategories::class)->name('categories');

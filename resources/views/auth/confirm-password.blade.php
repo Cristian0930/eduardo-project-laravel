@@ -1,8 +1,10 @@
 <x-guest-layout>
     <x-jet-authentication-card>
         <x-slot name="logo">
-            <x-jet-authentication-card-logo />
+
         </x-slot>
+
+        <img class="w-27 h-27" src="{{ URL::asset('assets/logo.png') }}" alt="logo">
 
         <div class="mb-4 text-sm text-gray-600">
             {{ __('This is a secure area of the application. Please confirm your password before continuing.') }}
