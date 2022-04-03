@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\ShowAssets;
 use App\Http\Livewire\ShowCategories;
 use App\Http\Livewire\ShowStatuses;
+use App\Http\Livewire\ShowUsers;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,4 +24,6 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', ShowAssets::class)->name('dashboard');
 Route::middleware(['auth:sanctum', 'admin'])->get('/categories', ShowCategories::class)->name('categories');
 Route::middleware(['auth:sanctum', 'admin'])->get('/statuses', ShowStatuses::class)->name('statuses');
+Route::middleware(['auth:sanctum', 'admin'])->get('/users', ShowUsers::class)->name('users');
+
 

@@ -22,6 +22,10 @@
                         {{ __('Statuses') }}
                     </x-jet-nav-link>
 
+                    <x-jet-nav-link href="{{ route('users') }}" :active="request()->routeIs('users')">
+                        {{ __('Users') }}
+                    </x-jet-nav-link>
+
                     <x-jet-nav-link href="{{ route('log-viewer::dashboard') }}">
                         {{ __('Bítacora') }}
                     </x-jet-nav-link>

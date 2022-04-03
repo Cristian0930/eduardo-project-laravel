@@ -129,7 +129,6 @@
         @if($category != null)
             <x-jet-dialog-modal wire:model="open_edit">
                 <x-slot name="title">
-                    Edit category: {{ $category->name }}
                 </x-slot>
 
                 <x-slot name="content">

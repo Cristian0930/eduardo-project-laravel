@@ -1,13 +1,12 @@
-<div wire:init="loadAssets">
+<div>
     <div>
         <x-slot name="header">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Assets') }}
+                {{ __('Users') }}
             </h2>
         </x-slot>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <!-- This example requires Tailwind CSS v2.0+ -->
             <x-table>
                 <div class="px-6 py-4 flex items-center">
 
@@ -19,22 +18,21 @@
                             <option value="50">50</option>
                             <option value="100">100</option>
                         </select>
-                        <span>Assets</span>
+                        <span>Usuarios</span>
                     </div>
 
-                    <x-jet-input class="flex-1 mx-4" type="text" placeholder="search..." wire:model="search"></x-jet-input>
-                    @livewire('create-asset')
+                    <x-jet-input class="flex-1 mx-4" type="text" placeholder="Buscar..." wire:model="search"></x-jet-input>
                 </div>
-                @if(count($assets))
+                @if(count($users))
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
                         <tr>
                             <th scope="col"
                                 class="cursor-pointer px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                wire:click="order('serial_number')"
+                                wire:click="order('id')"
                             >
-                                Serial
-                                @if($sort == 'serial_number')
+                                Id
+                                @if($sort == 'id')
                                     @if($direction == 'asc')
                                         <i class="fas fa-sort-alpha-up-alt float-right mt-1"></i>
                                     @else
@@ -46,10 +44,10 @@
                             </th>
                             <th scope="col"
                                 class="cursor-pointer px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                wire:click="order('brand')"
+                                wire:click="order('name')"
                             >
-                                Brand
-                                @if($sort == 'brand')
+                                Name
+                                @if($sort == 'name')
                                     @if($direction == 'asc')
                                         <i class="fas fa-sort-alpha-up-alt float-right mt-1"></i>
                                     @else
@@ -61,10 +59,10 @@
                             </th>
                             <th scope="col"
                                 class="cursor-pointer px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                wire:click="order('model')"
+                                wire:click="order('email')"
                             >
-                                Model
-                                @if($sort == 'model')
+                                Email
+                                @if($sort == 'email')
                                     @if($direction == 'asc')
                                         <i class="fas fa-sort-alpha-up-alt float-right mt-1"></i>
                                     @else
@@ -74,20 +72,19 @@
                                     <i class="fa fa-sort float-right mt-1"></i>
                                 @endif
                             </th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Type
+                            <th scope="col"
+                                class="cursor-pointer px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            >
+                                Rol
+                            <th scope="col"
+                                class="cursor-pointer px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            >
+                                Created_At
                             </th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Category
-                            </th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Status
-                            </th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Date of entry
-                            </th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                quantity
+                            <th scope="col"
+                                class="cursor-pointer px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            >
+                                Updated_at
                             </th>
                             <th scope="col" class="relative px-6 py-3">
                                 <span class="sr-only">Edit</span>
@@ -95,54 +92,48 @@
                         </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                        @foreach($assets as $asset)
+                        @foreach($users as $user)
                             <tr>
                                 <td class="px-6 py-4">
                                     <div class="text-sm text-gray-500">
-                                        {{ $asset->serial_number }}
+                                        {{ $user->id }}
                                     </div>
                                 </td>
                                 <td class="px-6 py-4">
                                     <div class="text-sm text-gray-500">
-                                        {{ $asset->brand }}
+                                        {{ $user->name }}
                                     </div>
                                 </td>
                                 <td class="px-6 py-4">
                                     <div class="text-sm text-gray-500">
-                                        {{ $asset->model }}
+                                        {{ $user->email }}
                                     </div>
                                 </td>
                                 <td class="px-6 py-4">
                                     <div class="text-sm text-gray-500">
-                                        {{ $asset->type }}
+                                        @if($user->isAdmin === 1)
+                                            Admin
+                                        @else
+                                            Empleado
+                                        @endif
                                     </div>
                                 </td>
                                 <td class="px-6 py-4">
                                     <div class="text-sm text-gray-500">
-                                        {{ $asset->category->name }}
+                                        {{ $user->created_at }}
                                     </div>
                                 </td>
                                 <td class="px-6 py-4">
                                     <div class="text-sm text-gray-500">
-                                        {{ $asset->status->name }}
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4">
-                                    <div class="text-sm text-gray-500">
-                                        {{ $asset->date_of_entry }}
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4">
-                                    <div class="text-sm text-gray-500">
-                                        {{ $asset->quantity }}
+                                        {{ $user->updated_at }}
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                    <a class="btn btn-green" wire:click="edit({{$asset}})">
+                                    <a class="btn btn-green" wire:click="edit({{$user}})">
                                         <i class="fa fa-edit"></i>
                                     </a>
 
-                                    <a class="btn btn-red ml-2" wire:click="$emit('deleteAsset', {{ $asset->id }})">
+                                    <a class="btn btn-red ml-2" wire:click="$emit('deleteUser', {{ $user->id }})">
                                         <i class="fa fa-trash"></i>
                                     </a>
                                 </td>
@@ -152,9 +143,9 @@
                         </tbody>
                     </table>
 
-                    @if($assets->hasPages())
+                    @if($users->hasPages())
                         <div class="px-6 py-4">
-                            {{ $assets->links() }}
+                            {{ $users->links() }}
                         </div>
                     @endif
 
@@ -167,87 +158,26 @@
             </x-table>
         </div>
 
-        @if($asset != null)
+        @if($user != null)
             <x-jet-dialog-modal wire:model="open_edit">
                 <x-slot name="title">
-                    Edit asset
+                    Edit user
                 </x-slot>
 
                 <x-slot name="content">
 
                     <div class="mb-4">
-                        <x-jet-label value="Serial number" />
-                        <x-jet-input type="text" class="w-full" wire:model.defer="asset.serial_number"/>
-
-                        <x-jet-input-error for="serial_number" />
-                    </div>
-
-                    <div class="mb-4">
-                        <x-jet-label value="Brand" />
-                        <x-jet-input type="text" class="w-full" wire:model.defer="asset.brand"/>
-
-                        <x-jet-input-error for="brand" />
-                    </div>
-
-                    <div class="mb-4">
-                        <x-jet-label value="Model" />
-                        <x-jet-input type="text" class="w-full" wire:model.defer="asset.model"/>
-
-                        <x-jet-input-error for="model" />
-                    </div>
-
-                    <div class="mb-4">
-                        <x-jet-label value="Type" />
-                        <x-jet-input type="text" class="w-full" wire:model.defer="asset.type"/>
-
-                        <x-jet-input-error for="type" />
-                    </div>
-
-                    <div class="mb-4">
-                        <x-jet-label value="Category" />
-                        <select wire:model.defer="asset.category_id" class="form-control w-full">
-                            @foreach ($categories as $category)
-                                <option value="{{ $category->id }}">
-                                    {{ $category->name }}
-                                </option>
-                            @endforeach
+                        <x-jet-label value="Admin" />
+                        <select wire:model.defer="user.isAdmin" class="form-control w-full">
+                            <option value="0">
+                                Empleado
+                            </option>
+                            <option value="1">
+                                Administrador
+                            </option>
                         </select>
 
-                        <x-jet-input-error for="category_id" />
-                    </div>
-
-                    <div class="mb-4">
-                        <x-jet-label value="Status" />
-                        <select wire:model.defer="asset.status_id" class="form-control w-full">
-                            @foreach ($statuses as $status)
-                                <option value="{{ $status->id }}">
-                                    {{ $status->name }}
-                                </option>
-                            @endforeach
-                        </select>
-
-                        <x-jet-input-error for="status_id" />
-                    </div>
-
-                    <div class="mb-4">
-                        <x-jet-label value="Explanation" />
-                        <textarea wire:model.defer="asset.explanation" class="form-control w-full" rows="6"></textarea>
-
-                        <x-jet-input-error for="explanation" />
-                    </div>
-
-                    <div class="mb-4">
-                        <x-jet-label value="Date of entry" />
-                        <x-jet-input wire:model.defer="asset.date_of_entry" type="datetime-local" class="w-full"/>
-
-                        <x-jet-input-error for="date_of_entry" />
-                    </div>
-
-                    <div class="mb-4">
-                        <x-jet-label value="Quantity" />
-                        <x-jet-input wire:model.defer="asset.quantity" type="number" class="w-full"/>
-
-                        <x-jet-input-error for="quantity" />
+                        <x-jet-input-error for="isAdmin" />
                     </div>
 
                 </x-slot>
@@ -258,18 +188,19 @@
                     </x-jet-secondary-button>
 
                     <x-jet-danger-button wire:click="update" wire:loading.attr="disabled" wire:target="update" class="disable:opacity-25">
-                        Update asset
+                        Update user
                     </x-jet-danger-button>
                 </x-slot>
             </x-jet-dialog-modal>
         @endif
+
     </div>
     @push('js')
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         <script>
 
-            Livewire.on('deleteAsset', assetId => {
+            Livewire.on('deleteUser', userId => {
                 Swal.fire({
                     title: 'Are you sure?',
                     text: "You won't be able to revert this!",
@@ -281,7 +212,7 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
 
-                        Livewire.emitTo('show-assets', 'delete', assetId)
+                        Livewire.emitTo('show-users', 'delete', userId)
 
                         Swal.fire(
                             'Deleted!',
