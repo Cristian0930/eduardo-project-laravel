@@ -21,6 +21,6 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', ShowAssets::class)->name('dashboard');
-Route::middleware(['auth:sanctum'])->get('/categories', ShowCategories::class)->name('categories');
-Route::middleware(['auth:sanctum'])->get('/statuses', ShowStatuses::class)->name('statuses');
+Route::middleware(['auth:sanctum', 'admin'])->get('/categories', ShowCategories::class)->name('categories');
+Route::middleware(['auth:sanctum', 'admin'])->get('/statuses', ShowStatuses::class)->name('statuses');
 
