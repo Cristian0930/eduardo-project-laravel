@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Category;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -11,7 +12,7 @@ class ShowCategories extends Component
     use WithPagination;
 
     public $search = '';
-    public $asset;
+    public $category;
     public $sort = 'id';
     public $direction = 'desc';
     public $cant = '10';
@@ -63,5 +64,35 @@ class ShowCategories extends Component
             $this->sort = $sort;
             $this->direction = 'asc';
         }
+    }
+
+    public function edit(Category $category)
+    {
+        $this->category = $category;
+        $this->open_edit = true;
+    }
+
+    public function loadCategories()
+    {
+        $this->readyToLoad = true;
+    }
+
+    public function update()
+    {
+        try {
+            $this->validate();
+            $this->category->save();
+
+            $this->reset(['open_edit']);
+
+            $user = auth()->user()->name;
+
+            $this->emit('alert', 'the category was successfully updated');
+            Log::info('La categoría con id: ' . $this->category->id . ' fue actualizada por el usuario: ' . $user);
+
+        } catch (\Exception $exception) {
+            Log::error($exception);
+        }
+
     }
 }

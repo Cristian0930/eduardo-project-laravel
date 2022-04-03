@@ -97,7 +97,7 @@
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                    <a class="btn btn-green">
+                                    <a class="btn btn-green" wire:click="edit({{$category}})">
                                         <i class="fa fa-edit"></i>
                                     </a>
 
@@ -125,5 +125,33 @@
 
             </x-table>
         </div>
+
+        @if($category != null)
+            <x-jet-dialog-modal wire:model="open_edit">
+                <x-slot name="title">
+                    Edit category: {{ $category->name }}
+                </x-slot>
+
+                <x-slot name="content">
+
+                    <div class="mb-4">
+                        <x-jet-label value="Name" />
+                        <x-jet-input type="text" class="w-full" wire:model.defer="category.name"/>
+
+                        <x-jet-input-error for="name" />
+                    </div>
+                </x-slot>
+
+                <x-slot name="footer">
+                    <x-jet-secondary-button wire:click="$set('open_edit', false)" class="mr-4">
+                        Cancel
+                    </x-jet-secondary-button>
+
+                    <x-jet-danger-button wire:click="update" wire:loading.attr="disabled" wire:target="update" class="disable:opacity-25">
+                        Update category
+                    </x-jet-danger-button>
+                </x-slot>
+            </x-jet-dialog-modal>
+        @endif
     </div>
 </div>
