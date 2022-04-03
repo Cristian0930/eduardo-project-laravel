@@ -93,6 +93,14 @@ class ShowCategories extends Component
         } catch (\Exception $exception) {
             Log::error($exception);
         }
+    }
 
+    public function delete($category)
+    {
+        $category = Category::findOrFail($category);
+        $user = auth()->user()->name;
+        Log::alert('La categoría con id: ' . $category->id . ' fue borrada por el usuario: ' . $user);
+        $category->delete();
+        $this->category = null;
     }
 }

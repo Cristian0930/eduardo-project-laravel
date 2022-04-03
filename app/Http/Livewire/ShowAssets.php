@@ -102,7 +102,7 @@ class ShowAssets extends Component
             $user = auth()->user()->name;
 
             $this->emit('alert', 'the asset was successfully updated');
-            Log::info('El registro fue actualizado por el usuario: ' . $user);
+            Log::info('El registro con número de serie: ' . $this->asset->serial_number . ' fue actualizado por el usuario: ' . $user);
 
         } catch (\Exception $exception) {
             Log::error($exception);
