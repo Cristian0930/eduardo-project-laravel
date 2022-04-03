@@ -179,6 +179,8 @@ return [
         App\Providers\FortifyServiceProvider::class,
         App\Providers\JetstreamServiceProvider::class,
 
+        Arcanedev\LogViewer\LogViewerServiceProvider::class,
+
     ],
 
     /*

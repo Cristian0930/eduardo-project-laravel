@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Category;
 use App\Models\Status;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 use App\Models\Asset;
 use Livewire\WithPagination;
@@ -92,12 +93,21 @@ class ShowAssets extends Component
 
     public function update()
     {
-        $this->validate();
-        $this->asset->save();
+        try {
+            $this->validate();
+            $this->asset->save();
 
-        $this->reset(['open_edit']);
+            $this->reset(['open_edit']);
 
-        $this->emit('alert', 'the asset was successfully updated');
+            $user = auth()->user()->name;
+
+            $this->emit('alert', 'the asset was successfully updated');
+            Log::info('registro actualizado por el usuario: ' . $user);
+
+        } catch (\Exception $exception) {
+            Log::error($exception);
+        }
+
     }
 
     public function delete($asset)
