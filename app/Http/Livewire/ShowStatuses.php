@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Status;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -68,5 +69,38 @@ class ShowStatuses extends Component
     public function loadCategories()
     {
         $this->readyToLoad = true;
+    }
+
+    public function edit(Status $status)
+    {
+        $this->status = $status;
+        $this->open_edit = true;
+    }
+
+    public function update()
+    {
+        try {
+            $this->validate();
+            $this->status->save();
+
+            $this->reset(['open_edit']);
+
+            $user = auth()->user()->name;
+
+            $this->emit('alert', 'the status was successfully updated');
+            Log::info('El estatus con id: ' . $this->status->id . ' fue actualizado por el usuario: ' . $user);
+
+        } catch (\Exception $exception) {
+            Log::error($exception);
+        }
+    }
+
+    public function delete($status)
+    {
+        $status = Status::findOrFail($status);
+        $user = auth()->user()->name;
+        Log::alert('El estatus con id: ' . $status->id . ' fue borrado por el usuario: ' . $user);
+        $status->delete();
+        $this->status = null;
     }
 }
